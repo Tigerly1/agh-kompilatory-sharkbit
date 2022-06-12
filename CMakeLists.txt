@@ -22,6 +22,7 @@ find_package(ANTLR REQUIRED)
 antlr_target(sharkbit sharkbit.g4
     PACKAGE sharkbit
     LISTENER
+    VISITOR
     )
 
 # include generated files in project environment
@@ -30,6 +31,7 @@ include_directories(${ANTLR_sharkbit_OUTPUT_DIR})
 # add generated grammar to demo binary target
 add_executable(sharkbit
 sharkbit.cpp
+MyVisitor.h
 ${ANTLR_sharkbit_CXX_OUTPUTS})
 
 target_link_libraries(sharkbit antlr4_shared)

@@ -1,5 +1,4 @@
 {
-  // See https://go.microsoft.com//fwlink//?linkid=834763 for more information about this file.
   "configurations": [
     {
       "name": "x86-Debug",
@@ -12,15 +11,18 @@
       "variables": [
         {
           "name": "ANTLR4_INSTALL",
-          "value": "1"
+          "value": "1",
+          "type": "STRING"
         },
         {
           "name": "WITH_STATIC_CRT",
-          "value": "OFF"
+          "value": "OFF",
+          "type": "STRING"
         },
         {
           "name": "WITH_DEMO",
-          "value": "OFF"
+          "value": "OFF",
+          "type": "STRING"
         }
       ],
       "buildCommandArgs": "-v",
@@ -37,15 +39,18 @@
       "variables": [
         {
           "name": "ANTLR4_INSTALL",
-          "value": "1"
+          "value": "1",
+          "type": "STRING"
         },
         {
           "name": "WITH_STATIC_CRT",
-          "value": "OFF"
+          "value": "OFF",
+          "type": "STRING"
         },
         {
           "name": "WITH_DEMO",
-          "value": "OFF"
+          "value": "OFF",
+          "type": "STRING"
         }
       ],
       "buildCommandArgs": "-v",
@@ -62,15 +67,18 @@
       "variables": [
         {
           "name": "ANTLR4_INSTALL",
-          "value": "1"
+          "value": "1",
+          "type": "STRING"
         },
         {
           "name": "WITH_STATIC_CRT",
-          "value": "OFF"
+          "value": "OFF",
+          "type": "STRING"
         },
         {
           "name": "WITH_DEMO",
-          "value": "OFF"
+          "value": "OFF",
+          "type": "STRING"
         }
       ],
       "buildCommandArgs": "-v",
@@ -87,15 +95,18 @@
       "variables": [
         {
           "name": "ANTLR4_INSTALL",
-          "value": "1"
+          "value": "1",
+          "type": "STRING"
         },
         {
           "name": "WITH_STATIC_CRT",
-          "value": "OFF"
+          "value": "OFF",
+          "type": "STRING"
         },
         {
           "name": "WITH_DEMO",
-          "value": "OFF"
+          "value": "OFF",
+          "type": "STRING"
         }
       ],
       "buildCommandArgs": "-v",

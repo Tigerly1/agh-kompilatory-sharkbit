@@ -13,7 +13,7 @@ varDeclId | varDeclId ASSIGN mathExp;
 varDeclId :
 ID | ID LS RS;
 coutDecl :
-COUT ID SEMICOLON | COUT mathExp SEMICOLON;
+COUT mathExp SEMICOLON;
 constSpec :
 CONST | ;
 typeSpec :
@@ -73,7 +73,7 @@ immutable | mutaable;
 mutaable :
 ID | ID LS INTNUMBER RS | POINTER_ADDRESS ID;
 immutable :
-LR mathExp RR | call | constant; //math exp nie wiadomo
+call | constant; //math exp nie wiadomo
 call :
 ID LR args RR;
 args :
