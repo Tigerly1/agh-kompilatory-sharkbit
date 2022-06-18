@@ -6,6 +6,7 @@
 #include "Math.h";
 
 
+
 using namespace sharkbit;
 
 
@@ -25,6 +26,8 @@ public:
 	bool isConst = false;
 
 
+
+	void enterProgram(sharkbitParser::ProgramContext* ctx) override { }
 
 	void enterVarDecl(sharkbitParser::VarDeclContext* ctx) override
 	{
