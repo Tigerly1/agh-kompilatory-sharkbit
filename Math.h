@@ -65,5 +65,12 @@ public:
     string getResult() {
         return result;
     }
-
+    void MathExp(string number) {
+        if (get_a().empty()) {
+            init_a(number);
+        }
+        else {
+            init_b(number);
+        }
+    }
 };
