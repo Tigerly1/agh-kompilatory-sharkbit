@@ -93,12 +93,7 @@ public:
 		{
 			std::string name = ctx->ID()->getText();
 
-			if (math.get_a().empty()) {
-				math.init_a(variableContainer[name].value);
-			}
-			else {
-				math.init_b(variableContainer[name].value);
-			}
+			math.MathExp(ctx->getText());
 		}
 	}
 
@@ -114,23 +109,16 @@ public:
 
 	void exitMathExp(sharkbitParser::MathExpContext*) override {
 		varValue = math.getResult();
+		cout << varValue;
 	}
 	void enterMathOp(sharkbitParser::MathOpContext* ctx) override {
 		math.oper_def(ctx->getText());
 	}
 	void enterConstant(sharkbitParser::ConstantContext* ctx) override {
 		if (ctx->INTNUMBER() != nullptr) {
-			if (varType != VariableGuts::INT)
-			{
-				cout << "ERROR: Cannot assign this value to this variable " << varName;
-				return;
-			}
-			if (math.get_a().empty()) {
-				math.init_a(ctx->INTNUMBER()->getText());
-			}
-			else {
-				math.init_b(ctx->INTNUMBER()->getText());
-			}
+
+			math.MathExp(ctx->getText());
+
 		}
 	}
 };
