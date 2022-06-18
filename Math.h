@@ -20,6 +20,8 @@ public:
     string b;
     string result;
     string operators;
+
+
     void MathExp(string number) {
         if (get_a().empty()) {
             init_a(number);
@@ -28,7 +30,6 @@ public:
             init_b(number);
         }
     }
-
 
     void init_a(string a_a) {
         a = a_a;
@@ -74,13 +75,5 @@ public:
     };
     string getResult() {
         return result;
-    }
-    void MathExp(string number) {
-        if (get_a().empty()) {
-            init_a(number);
-        }
-        else {
-            init_b(number);
-        }
     }
 };

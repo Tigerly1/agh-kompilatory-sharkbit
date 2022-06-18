@@ -20,6 +20,7 @@ public:
 	std::string muttable;
 
 	// temporary to save variables
+	bool assingable = true;
 	std::string varName = "";
 	std::string varValue = "";
 	VariableGuts::VariableType varType;
@@ -35,8 +36,8 @@ public:
 		varValue = "";
 		math.a = "";
 		isConst = false;
+		assingable = true;
 	}
-
 
 	void exitVarDecl(sharkbitParser::VarDeclContext* ctx) override
 	{
@@ -44,46 +45,52 @@ public:
 		{
 			return;
 		}
+		if (assingable)
+		{
+			VariableGuts varGuts(varType, varValue, isConst);
 
-		VariableGuts varGuts(varType, varValue, isConst);
-
-		variableContainer.add(varName, varGuts);
+			variableContainer.add(varName, varGuts);
+		}
 		// to debug
 		int a = 2;
 	}
-
 
 	void enterVarDeclId(sharkbitParser::VarDeclIdContext* ctx) override
 	{
 		varName = ctx->ID()->getText();
 	}
 	
-
 	void enterTypeSpec(sharkbitParser::TypeSpecContext* ctx) override 
 	{
 		if (ctx->ADDRESS() != nullptr)
 		{
 			varType = VariableGuts::ADDRESS;
+			return;
 		}
 		if (ctx->BOOL() != nullptr)
 		{
 			varType = VariableGuts::BOOL;
+			return;
 		}
 		if (ctx->INT() != nullptr)
 		{
 			varType = VariableGuts::INT;
+			return;
 		}
 		if (ctx->STRING() != nullptr)
 		{
 			varType = VariableGuts::STRING;
+			return;
 		}
 		if (ctx->IP() != nullptr)
 		{
 			varType = VariableGuts::IP;
+			return;
 		}
 		if (ctx->CHAR() != nullptr)
 		{
 			varType = VariableGuts::CHAR;
+			return;
 		}
 	}
 
@@ -93,7 +100,7 @@ public:
 		{
 			std::string name = ctx->ID()->getText();
 
-			math.MathExp(ctx->getText());
+			math.MathExp(variableContainer[name].value);
 		}
 	}
 
@@ -104,21 +111,29 @@ public:
 			isConst = true;
 		}
 	}
+
 	void enterMathExp(sharkbitParser::MathExpContext* ctx) override {
 	}
 
 	void exitMathExp(sharkbitParser::MathExpContext*) override {
 		varValue = math.getResult();
-		cout << varValue;
 	}
+
 	void enterMathOp(sharkbitParser::MathOpContext* ctx) override {
 		math.oper_def(ctx->getText());
+
 	}
+
 	void enterConstant(sharkbitParser::ConstantContext* ctx) override {
+
 		if (ctx->INTNUMBER() != nullptr) {
-
-			math.MathExp(ctx->getText());
-
+			if (varType != VariableGuts::INT)
+			{
+				cout << "ERROR: Cannot assign this value to this variable " << varName;
+				assingable  = false;
+				return;
+			}
+			math.MathExp(ctx->INTNUMBER()->getText());
 		}
 	}
 };
