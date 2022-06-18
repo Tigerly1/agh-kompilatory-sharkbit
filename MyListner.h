@@ -89,12 +89,7 @@ public:
 		{
 			std::string name = ctx->ID()->getText();
 
-			if (math.get_a().empty()) {
-				math.init_a(variableContainer[name].value);
-			}
-			else {
-				math.init_b(variableContainer[name].value);
-			}
+			math.MathExp(ctx->getText());
 		}
 	}
 
