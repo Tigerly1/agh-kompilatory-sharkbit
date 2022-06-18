@@ -37,19 +37,23 @@ public:
 		isConst = false;
 	}
 
+
 	void exitVarDecl(sharkbitParser::VarDeclContext* ctx) override
 	{
 		if (varName == "" || varValue == "" || varType == -1)
 		{
 			return;
 		}
+
 		VariableGuts varGuts(varType, varValue, isConst);
 
 		variableContainer.add(varName, varGuts);
 		// to debug
 		int a = 2;
 	}
-	void enterVarDeclId(sharkbitParser::VarDeclIdContext* ctx) override 
+
+
+	void enterVarDeclId(sharkbitParser::VarDeclIdContext* ctx) override
 	{
 		varName = ctx->ID()->getText();
 	}
@@ -112,7 +116,9 @@ public:
 	}
 	void enterConstant(sharkbitParser::ConstantContext* ctx) override {
 		if (ctx->INTNUMBER() != nullptr) {
+
 			math.MathExp(ctx->getText());
+
 		}
 	}
 };
