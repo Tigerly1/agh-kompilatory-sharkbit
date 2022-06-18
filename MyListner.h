@@ -110,18 +110,14 @@ public:
 
 	void exitMathExp(sharkbitParser::MathExpContext*) override {
 		varValue = math.getResult();
+		cout << varValue;
 	}
 	void enterMathOp(sharkbitParser::MathOpContext* ctx) override {
 		math.oper_def(ctx->getText());
 	}
 	void enterConstant(sharkbitParser::ConstantContext* ctx) override {
 		if (ctx->INTNUMBER() != nullptr) {
-			if (math.get_a().empty()) {
-				math.init_a(ctx->INTNUMBER()->getText());
-			}
-			else {
-				math.init_b(ctx->INTNUMBER()->getText());
-			}
+			math.MathExp(ctx->getText());
 		}
 	}
 };
