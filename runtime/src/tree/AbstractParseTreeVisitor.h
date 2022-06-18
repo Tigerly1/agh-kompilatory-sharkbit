@@ -33,7 +33,7 @@ namespace tree {
      * method to behave properly in respect to the specific algorithm in use.</p>
      */
     virtual std::any visitChildren(ParseTree *node) override {
-      std::any result = defaultResult();
+      std::vector<std::any> result;
       size_t n = node->children.size();
       for (size_t i = 0; i < n; i++) {
         if (!shouldVisitNextChild(node, result)) {
@@ -41,7 +41,7 @@ namespace tree {
         }
 
         std::any childResult = node->children[i]->accept(this);
-        result = aggregateResult(std::move(result), std::move(childResult));
+        result.push_back(childResult);
       }
 
       return result;

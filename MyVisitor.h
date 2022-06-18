@@ -56,23 +56,41 @@ public:
 
         //char semicolon = std::any_cast<char>(visitChildren(context));
         //std::vector<std::any> numint = std::any_cast<std::vector < std::any >> (visitChildren(context));
-        auto any_math = context->children[1];
 
         //int num_int = std::any_cast<int>(any_math);
         
         //std::cout << std::endl << num_int << std::endl;
 
-        std::any child = visitChildren(context);
 
-        auto c = std::any_cast<std::string>(child);
+        
+        //std::vector<std::any> numint = std::any_cast<std::vector < std::any >> (visitChildren(context));
 
-        auto x = child.has_value();
 
-        return child;
+        // ? 5 ;
+
+        auto hehehe = visitChildren(context);
+
+
+        auto x = context->getText();
+
+
+        std::vector<int> tokens;
+        for (int i = 0; i < 64; i++)
+        {
+            std::vector a = context->getTokens(i);
+            if (!a.empty())
+            {
+                tokens.push_back(i);
+            }
+        }
+
+
+        return true;
     };
 
     std::any visitConstSpec(sharkbitParser::ConstSpecContext* context) override {
         std::cout << "6 running";
+
 
         return visitChildren(context);
     };
@@ -224,7 +242,8 @@ public:
         return visitChildren(context);
     };
 
-    std::any visitMathExp(sharkbitParser::MathExpContext* context) override {
+    std::any visitMathExp(sharkbitParser::MathExpContext* context) override
+     {
         std::cout << "31 running";
        
         /*if (context->mathOp())

@@ -22,7 +22,7 @@ int main(int argc, const char* argv[]) {
 
 
 
-    std::string word = "int a = 2 + 2 + 2; int c = a + 2; int b = a + c";
+    std::string word = "int a = 2 + 2 * 2; string c = 2; int b = 4 / 2";
     ANTLRInputStream input(word);
     sharkbit::sharkbitLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
