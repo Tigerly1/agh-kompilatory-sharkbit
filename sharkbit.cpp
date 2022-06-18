@@ -7,7 +7,6 @@
 #include "MyListner.h"
 
 using namespace antlr4;
-
 class TreeShapeListener : public sharkbit::sharkbitBaseListener {
 public:
 	void enterProgram(sharkbit::sharkbitParser::ProgramContext* ctx) override  {
