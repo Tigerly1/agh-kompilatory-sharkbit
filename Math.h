@@ -91,4 +91,7 @@ public:
     string getResult() {
         return result;
     }
+    void setResult(string result){
+        this->result = result;
+    }
 };

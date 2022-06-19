@@ -87,17 +87,6 @@ public:
         return visitChildren(context);
     };
 
-    std::any visitTypeDec(sharkbitParser::TypeDecContext* context) override {
-        std::cout << "9 running";
-
-        return visitChildren(context);
-    };
-
-    std::any visitPointerDec(sharkbitParser::PointerDecContext* context) override {
-        std::cout << "10 running";
-
-        return visitChildren(context);
-    };
 
     std::any visitFunDecl(sharkbitParser::FunDeclContext* context) override {
         std::cout << "11 running";

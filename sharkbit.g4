@@ -1,15 +1,22 @@
 grammar sharkbit;
 
+
 program :
 declList;
 declList :
 declList decl | decl;
 decl :
-coutDecl | varDecl | funDecl | varDeclInit;
+coutDecl | varDecl | funDecl | varDeclInit | pointerVarDecl | assignPointer;
 varDecl :
-constSpec typeDec varDeclInit SEMICOLON;
+constSpec typeSpec varDeclInit SEMICOLON;
+pointerVarDecl:
+constSpec typeSpec POINTER idDecl ASSIGN POINTER_ADDRESS ID SEMICOLON;
+idDecl:
+ID;
 varDeclInit :
-ID | ID ASSIGN mathExp;
+ID | ID ASSIGN mathExp ;
+assignPointer:
+POINTED_VALUE ID ASSIGN mathExp SEMICLON;
 coutDecl :
 COUT mathExp SEMICOLON;
 constSpec :
@@ -18,18 +25,14 @@ typeSpec :
 INT | BOOL | DOUBLE | STRING | IP | PROTOCOL | ADDRESS | FILE | PORT | CHAR | list | ;
 list:
 LIST LESS typeSpec GREATER;
-typeDec :
-typeSpec pointerDec;
-pointerDec :
-POINTER | ;
 funDecl :
-FUNCTION ID typeDec LR parms RR stmt;
+FUNCTION ID typeSpec LR parms RR stmt;
 parms :
 parmList | ;
 parmList :
 parmList COMMA parmTypeList | parmTypeList;
 parmTypeList :
-typeDec parmIdList;
+typeSpec parmIdList;
 parmIdList :
 parmIdList COMMA parmId | parmId;
 parmId :
@@ -69,7 +72,7 @@ ADD | SUBSTRACTION | MULTIPLY | DIVIDE | MOD;
 factor :
 immutable | mutaable;
 mutaable :
-ID | ID LS INTNUMBER RS | POINTER_ADDRESS ID;
+ID | ID LS INTNUMBER RS | POINTED_VALUE ID;
 immutable :
 call | constant; //math exp nie wiadomo
 call :
@@ -79,7 +82,7 @@ argList | ;
 argList :
 argList COMMA simpleExp | simpleExp;
 constant :
-NONE | INTNUMBER | CHAR_CONST | STRING_CONST | TRUE | FALSE | DOUBNUMBER;
+NONE | INTNUMBER | CHAR_CONST | STRING_CONST | TRUE | FALSE | DOUBNUMBER | IP_CONST;
 
 DOUBLE: 'double';
 INT: 'int';

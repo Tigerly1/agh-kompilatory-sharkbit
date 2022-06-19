@@ -50,4 +50,24 @@ public:
 		}
 
 	}
+	bool containsVariable(std::string varName)
+	{
+		if (contrainer.count(varName) == 0)
+			return false;
+		else
+			return true;
+	}
+	VariableGuts::VariableType getVarialbeType(std::string varName)
+	{
+		std::map<std::string, VariableGuts>::iterator it = contrainer.find(varName);
+
+		if (it == contrainer.end()) {
+			throw std::out_of_range("Variable not found exception.\n");
+			std::cout << "ERROR: No variable called: " << varName;
+		}
+		else {
+			VariableGuts::VariableType ret = it->second.type;
+			return ret;
+		}
+	}
 };

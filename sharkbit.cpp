@@ -1,4 +1,7 @@
 ﻿#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdlib>
 #include "antlr4-runtime.h"
 #include "sharkbitLexer.h"
 #include "sharkbitParser.h"
@@ -18,11 +21,22 @@ public:
 
 
 int main(int argc, const char* argv[]) {
+    std::ifstream myfile;
+    myfile.open("test_sript.txt");
+    std::string line;
+    std::string stringinput;
 
+    if (!myfile.is_open()){
+        std::cout << "ERROR WHILE LOADING FILE";
+        exit(1);
+    }
 
+    // converting file into string
+    while (std::getline(myfile, line)) {
+        stringinput += line + "\n";
+    }
 
-    std::string word = "int a = 5;function check int(int a) {if (6 > 5) {? 1;}else { ? 0; }};";
-    ANTLRInputStream input(word);
+    ANTLRInputStream input(stringinput);
     sharkbit::sharkbitLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
     sharkbit::sharkbitParser parser(&tokens);
@@ -32,6 +46,7 @@ int main(int argc, const char* argv[]) {
     listener.enterProgram(parser.program());
     tree::ParseTreeWalker::DEFAULT.walk(&listener, tree);
 
+    myfile.close();
 
     return 0;
 }
