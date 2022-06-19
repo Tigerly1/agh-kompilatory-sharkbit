@@ -33,10 +33,14 @@ public:
 
     void init_a(string a_a) {
         a = a_a;
+
         result = a;
     }
     string get_a() {
         return a;
+    }
+    string get_b() {
+        return b;
     }
     void init_b(string b_b) {
         b = b_b;
@@ -50,7 +54,6 @@ public:
     }
     void oper_def(string op) {
         operators = op;
-        cout << op;
     };
     void add() {
         int res = std::stoi(a) + std::stoi(b);
@@ -73,6 +76,17 @@ public:
         this->result = to_string(res);
         a = this->result;
     };
+    void Mod() {
+        int res = std::stoi(a) % std::stoi(b);
+        this->result = to_string(res);
+        a = this->result;
+    }
+
+
+    void ClearInput() {
+        this->a = "";
+        this->b = "";
+    }
     string getResult() {
         return result;
     }

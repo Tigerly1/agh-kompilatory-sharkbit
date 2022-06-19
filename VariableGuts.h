@@ -6,7 +6,7 @@ class VariableGuts{
 public:
 	enum VariableType
 	{
-		INT, BOOL, DOUBLE, STRING, IP, PROTOCOL, ADDRESS, FILE, PORT, CHAR, LIST,
+		INT, BOOL, DOUBLE, STRING, IP, PROTOCOL, ADDRESS, FILE, PORT, CHAR, LIST, NONE
 	};
 	VariableType type;
 	std::string value;

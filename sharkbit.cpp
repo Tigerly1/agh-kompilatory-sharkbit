@@ -18,10 +18,7 @@ public:
 
 
 int main(int argc, const char* argv[]) {
-
-
-
-    std::string word = "int a; a =2 ; int c = a + 2; int b; b = c + a;";
+    std::string word = "int a = 2; a = 3; const int b = 12; b = 2; d = 3";
     ANTLRInputStream input(word);
     sharkbit::sharkbitLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
