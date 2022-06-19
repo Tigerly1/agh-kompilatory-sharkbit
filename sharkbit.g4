@@ -16,7 +16,7 @@ ID;
 varDeclInit :
 ID | ID ASSIGN mathExp ;
 assignPointer:
-POINTED_VALUE ID ASSIGN mathExp SEMICLON;
+POINTED_VALUE ID ASSIGN mathExp SEMICOLON;
 coutDecl :
 COUT mathExp SEMICOLON;
 constSpec :

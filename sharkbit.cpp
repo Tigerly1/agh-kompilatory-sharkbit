@@ -22,7 +22,7 @@ public:
 
 int main(int argc, const char* argv[]) {
     std::ifstream myfile;
-    myfile.open("test_sript.txt");
+    myfile.open("C:/Users/JF/mordo_wiertara/test_sript.txt");
     std::string line;
     std::string stringinput;
 

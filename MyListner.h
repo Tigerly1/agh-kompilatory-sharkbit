@@ -130,6 +130,7 @@ public:
 	{
 
 	}
+
 	void exitAssignPointer(sharkbitParser::AssignPointerContext* ctx) override
 	{
 		VariableGuts* varGuts;
@@ -152,7 +153,6 @@ public:
 		}
 	}
 
-	
 	void enterTypeSpec(sharkbitParser::TypeSpecContext* ctx) override 
 	{
 		if (ctx->ADDRESS() != nullptr)
