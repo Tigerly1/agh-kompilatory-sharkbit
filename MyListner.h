@@ -117,11 +117,16 @@ public:
 
 	void exitMathExp(sharkbitParser::MathExpContext*) override {
 		varValue = math.getResult();
+		math.ClearInput();
 	}
 
 	void enterMathOp(sharkbitParser::MathOpContext* ctx) override {
 		math.oper_def(ctx->getText());
 
+	}
+
+	virtual void exitCoutDecl(sharkbitParser::CoutDeclContext* ctx) override {
+		cout << math.getResult();
 	}
 
 	void enterConstant(sharkbitParser::ConstantContext* ctx) override {
