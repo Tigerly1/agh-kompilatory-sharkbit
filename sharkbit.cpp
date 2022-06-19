@@ -21,7 +21,7 @@ int main(int argc, const char* argv[]) {
 
 
 
-    std::string word = "int a = 5 + 2; ?a;";
+    std::string word = "int a = 5;function check int(int a) {if (6 > 5) {? 1;}else { ? 0; }};";
     ANTLRInputStream input(word);
     sharkbit::sharkbitLexer lexer(&input);
     CommonTokenStream tokens(&lexer);

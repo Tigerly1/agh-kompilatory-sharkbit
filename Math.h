@@ -20,7 +20,8 @@ public:
     string b;
     string result;
     string operators;
-
+    string compop;
+    vector<string> mathExpResults;
 
     void MathExp(string number) {
         if (get_a().empty()) {
@@ -39,43 +40,50 @@ public:
     string get_a() {
         return a;
     }
-    string get_b() {
-        return b;
-    }
     void init_b(string b_b) {
         b = b_b;
         this->start_math();
     }
-    void start_math() {
-        if (operators == "+") add();
-        else if (operators == "-") substract();
-        else if (operators == "/") divide();
-        else if (operators == "*") multiply();
+    string get_b() {
+        return b;
     }
     void oper_def(string op) {
         operators = op;
     };
-    void add() {
-        int res = std::stoi(a) + std::stoi(b);
-        this->result = to_string(res);
-        a = this->result;
 
-    };
-    void substract() {
-        int res = std::stoi(a) - std::stoi(b);
+    void compop_def(string compop_def) {
+        this->compop = compop_def;
+    }
+    void StoreMathExpResult() {
+        this->mathExpResults.push_back(this->result);
+    }
+    void RemoveMathExpResults() {
+        this->mathExpResults.clear();
+    }
+    
+    void start_math() {
+        int res;
+        if (operators == "+") res = std::stoi(a) + std::stoi(b);
+        else if (operators == "-") res = std::stoi(a) - std::stoi(b);
+        else if (operators == "/")  res = std::stoi(a) / std::stoi(b);
+        else if (operators == "*")  res = std::stoi(a) * std::stoi(b);
+        else if (operators == "%") res = std::stoi(a) % std::stoi(b);
         this->result = to_string(res);
         a = this->result;
-    };
-    void divide() {
-        int res = std::stoi(a) / std::stoi(b);
-        this->result = to_string(res);
-        a = this->result;
-    };
-    void multiply() {
-        int res = std::stoi(a) * std::stoi(b);
-        this->result = to_string(res);
-        a = this->result;
-    };
+    }
+    bool CompareResults() {
+        bool result;
+        if (!this->compop.empty()) {
+            if (this->compop == "<") {}
+            else if (this->compop == "<=") result = std::stoi(this->mathExpResults.at(0)) <= std::stoi(this->mathExpResults.at(1));
+            else if (this->compop == ">=") result = std::stoi(this->mathExpResults.at(0)) >= std::stoi(this->mathExpResults.at(1));
+            else if (this->compop == "==") result = std::stoi(this->mathExpResults.at(0)) == std::stoi(this->mathExpResults.at(1));
+            else if (this->compop == ">") result = std::stoi(this->mathExpResults.at(0)) > std::stoi(this->mathExpResults.at(1));
+            else if (this->compop == "!=") result = std::stoi(this->mathExpResults.at(0)) != std::stoi(this->mathExpResults.at(1));
+        }
+        return result;
+    }
+
     void ClearInput() {
         this->a = "";
         this->b = "";

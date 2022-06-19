@@ -111,12 +111,20 @@ public:
 			isConst = true;
 		}
 	}
+	void enterCompop(sharkbitParser::CompopContext* ctx) override {
 
-	void enterMathExp(sharkbitParser::MathExpContext* ctx) override {
+		math.compop_def(ctx->getText());
 	}
-
+	void enterRelExp(sharkbitParser::RelExpContext* ctx) override {
+		math.RemoveMathExpResults();
+	}
+	void exitRelExp(sharkbitParser::RelExpContext* ctx) override {
+		bool a = math.CompareResults();
+		int b = 5;
+	}
 	void exitMathExp(sharkbitParser::MathExpContext*) override {
 		varValue = math.getResult();
+		math.StoreMathExpResult();
 		math.ClearInput();
 	}
 
@@ -125,10 +133,13 @@ public:
 
 	}
 
-	virtual void exitCoutDecl(sharkbitParser::CoutDeclContext* ctx) override {
+	void exitCoutDecl(sharkbitParser::CoutDeclContext* ctx) override {
 		cout << math.getResult();
 	}
+	void enterStmt(sharkbitParser::StmtContext* ctx) override { 
+		
 
+	}
 	void enterConstant(sharkbitParser::ConstantContext* ctx) override {
 
 		if (ctx->INTNUMBER() != nullptr) {
