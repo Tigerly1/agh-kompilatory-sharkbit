@@ -5,13 +5,11 @@ declList;
 declList :
 declList decl | decl;
 decl :
-coutDecl | varDecl | funDecl;
+coutDecl | varDecl | funDecl | varDeclInit;
 varDecl :
 constSpec typeDec varDeclInit SEMICOLON;
 varDeclInit :
-varDeclId | varDeclId ASSIGN mathExp;
-varDeclId :
-ID | ID LS RS;
+ID | ID ASSIGN mathExp;
 coutDecl :
 COUT mathExp SEMICOLON;
 constSpec :
@@ -63,7 +61,7 @@ NOT unaryRelExp | relExp;
 relExp :
 mathExp compop mathExp| mathExp;
 compop :
-LESS | GREATER | LEQ | GEQ | GEQ | DIFF;
+LESS | GREATER | LEQ | GEQ | EQ | DIFF;
 mathExp :
 factor mathOp mathExp | factor;
 mathOp :

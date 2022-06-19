@@ -19,45 +19,75 @@ public:
 	// mutable
 	std::string muttable;
 
-	// temporary to save variables
+	// temporary to save variables, set to its deafult values
 	bool assingable = true;
 	std::string varName = "";
 	std::string varValue = "";
-	VariableGuts::VariableType varType;
+	VariableGuts::VariableType varType = VariableGuts::NONE;
 	bool isConst = false;
-
-
-
-	void enterProgram(sharkbitParser::ProgramContext* ctx) override { }
+	bool isPointer = false;
 
 	void enterVarDecl(sharkbitParser::VarDeclContext* ctx) override
 	{
 		varName = "";
-		varValue = "";
+		varType = VariableGuts::NONE;
 		math.a = "";
 		isConst = false;
+		isPointer = false;
 		assingable = true;
+		varType = VariableGuts::NONE;
 	}
 
 	void exitVarDecl(sharkbitParser::VarDeclContext* ctx) override
 	{
-		if (varName == "" || varValue == "" || varType == -1)
+		if (varName == "")
 		{
 			return;
 		}
 		if (assingable)
 		{
-			VariableGuts varGuts(varType, varValue, isConst);
+			if (varType != VariableGuts::NONE)
+			{
+				VariableGuts varGuts(varType, varValue, isConst);
+				variableContainer.add(varName, varGuts);
+			}
 
-			variableContainer.add(varName, varGuts);
 		}
 		// to debug
 		int a = 2;
 	}
 
-	void enterVarDeclId(sharkbitParser::VarDeclIdContext* ctx) override
+	void enterVarDeclInit(sharkbitParser::VarDeclInitContext* ctx) override
+	{
+		
+	}
+
+	void exitVarDeclInit(sharkbitParser::VarDeclInitContext* ctx) override
 	{
 		varName = ctx->ID()->getText();
+
+		if (varType == VariableGuts::NONE)
+		{
+			try
+			{
+				VariableGuts* varGuts = variableContainer[varName];
+
+				//std::string* value = &variableContainer[varName].value;
+				if (varGuts->isConst)
+				{
+					cerr << "Variable \"" << varName << "\" is const. You cannot change it.\n";
+				}
+				else
+				{
+					variableContainer[varName]->value = varValue;
+				}
+			}
+			catch (std::out_of_range& e)
+			{
+				cerr << e.what() << endl;
+			}
+		}
+
 	}
 	
 	void enterTypeSpec(sharkbitParser::TypeSpecContext* ctx) override 
@@ -92,6 +122,7 @@ public:
 			varType = VariableGuts::CHAR;
 			return;
 		}
+		varType = VariableGuts::NONE;
 	}
 
 	void enterMutaable(sharkbitParser::MutaableContext* ctx) override 
@@ -100,7 +131,7 @@ public:
 		{
 			std::string name = ctx->ID()->getText();
 
-			math.MathExp(variableContainer[name].value);
+			math.MathExp(variableContainer[name]->value);
 		}
 	}
 
@@ -143,13 +174,17 @@ public:
 	void enterConstant(sharkbitParser::ConstantContext* ctx) override {
 
 		if (ctx->INTNUMBER() != nullptr) {
-			if (varType != VariableGuts::INT)
+			if (varType != VariableGuts::INT && varType != VariableGuts::NONE)
 			{
-				cout << "ERROR: Cannot assign this value to this variable " << varName;
+				cerr << "ERROR: Cannot assign this value to this variable " << varName;
 				assingable  = false;
 				return;
 			}
 			math.MathExp(ctx->INTNUMBER()->getText());
 		}
+	}
+
+	void exitCoutDecl(sharkbitParser::CoutDeclContext* ctx) override {
+		cout << math.getResult();
 	}
 };

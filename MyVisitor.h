@@ -44,11 +44,6 @@ public:
         return visitChildren(context);
     };
 
-    std::any visitVarDeclId(sharkbitParser::VarDeclIdContext* context) override {
-        std::cout << "5 running";
-
-        return visitChildren(context);
-    };
 
     std::any visitCoutDecl(sharkbitParser::CoutDeclContext* context) override {
         std::cout << "5 running";

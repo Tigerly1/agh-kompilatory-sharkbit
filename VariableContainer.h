@@ -23,11 +23,12 @@ public:
 		}
 	}
 
-	VariableGuts operator[](std::string varName)
+	VariableGuts getCopyOf(std::string varName)
 	{
 		std::map<std::string, VariableGuts>::iterator it = contrainer.find(varName);
 
 		if (it == contrainer.end()) {
+			throw std::out_of_range("Variable not found exception");
 			std::cout << "ERROR: No variable called: " << varName;
 		}
 		else {
@@ -35,5 +36,18 @@ public:
 		}
 
 	}
+	VariableGuts * operator[](std::string varName)
+	{
+		std::map<std::string, VariableGuts>::iterator it = contrainer.find(varName);
 
+		if (it == contrainer.end()) {
+			throw std::out_of_range("Variable not found exception.\n");
+			std::cout << "ERROR: No variable called: " << varName;
+		}
+		else {
+			VariableGuts * ret =  &it->second;
+			return ret;
+		}
+
+	}
 };
