@@ -25,6 +25,7 @@ public:
 	std::string varValue = "";
 	VariableGuts::VariableType varType;
 	bool isConst = false;
+	bool isPointer = false;
 
 
 
@@ -36,12 +37,13 @@ public:
 		varValue = "";
 		math.a = "";
 		isConst = false;
+		isPointer = false;
 		assingable = true;
 	}
 
 	void exitVarDecl(sharkbitParser::VarDeclContext* ctx) override
 	{
-		if (varName == "" || varValue == "" || varType == -1)
+		if (varName == "" || varType == -1)
 		{
 			return;
 		}
