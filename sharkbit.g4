@@ -6,7 +6,7 @@ declList;
 declList :
 declList decl | decl;
 decl :
-coutDecl | varDecl | funDecl | varDeclInit | pointerVarDecl | assignPointer;
+coutDecl | varDecl | funDecl | varDeclInit | pointerVarDecl | assignPointer | call;
 varDecl :
 constSpec typeSpec varDeclInit SEMICOLON;
 pointerVarDecl:
@@ -76,7 +76,7 @@ ID | ID LS INTNUMBER RS | POINTED_VALUE ID;
 immutable :
 call | constant; //math exp nie wiadomo
 call :
-ID LR args RR;
+ID LR args RR | WRITE_MEMORY LR args RR;
 args :
 argList | ;
 argList :
@@ -130,6 +130,7 @@ DECYPHER: 'decypher';
 FIND_ADD: 'findAddresses';
 GET_PROC: 'getProcess';
 SEND_PACKET: 'sendPacket';
+WRITE_MEMORY: 'writeMemory';
 NONE: 'none';
 LESS: '<';
 GREATER: '>';

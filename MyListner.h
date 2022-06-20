@@ -6,7 +6,6 @@
 #include "VariableContainer.h"
 #include "Math.h";
 
-
 using namespace sharkbit;
 
 
@@ -15,7 +14,7 @@ class MyListner : public sharkbitBaseListener
 public:
 	VariableContainer variableContainer;
 	Math math;
-
+	//Functions functions;
 	// mutable
 	std::string muttable;
 
@@ -83,7 +82,11 @@ public:
 	{
 
 	}
-
+	void enterCall(sharkbitParser::CallContext* ctx) override { 
+		if (ctx->WRITE_MEMORY()) {
+			cout << "OKEY BOOMER";
+		}
+	}
 	void exitPointerVarDecl(sharkbitParser::PointerVarDeclContext* ctx) override
 	{
 		VariableGuts * varGuts;
@@ -121,6 +124,7 @@ public:
 
 	void enterVarDeclInit(sharkbitParser::VarDeclInitContext* ctx) override
 	{
+		if (isInIfStatement && !relExpIf && !isElse) return;
 		varName = ctx->ID()->getText();
 	}
 
@@ -157,6 +161,7 @@ public:
 
 	void exitAssignPointer(sharkbitParser::AssignPointerContext* ctx) override
 	{
+		if (isInIfStatement && !relExpIf && !isElse) return;
 		VariableGuts* varGuts;
 		try
 		{
@@ -219,12 +224,9 @@ public:
 
 	void enterMutaable(sharkbitParser::MutaableContext* ctx) override 
 	{
-<<<<<<< HEAD
-		if (ctx->children.size() == 1)
-=======
+
 		if (isInIfStatement && !relExpIf && !isElse) return;
-		if (ctx->ID() != nullptr)
->>>>>>> nowe
+		if (ctx->children.size() == 1)
 		{
 			std::string name = ctx->ID()->getText();
 
@@ -289,14 +291,9 @@ public:
 		if (isInIfStatement && !relExpIf && !isElse) return;
 		cout << math.getResult();
 	}
-<<<<<<< HEAD
-
-	void enterStmt(sharkbitParser::StmtContext* ctx) override { 
-		
-
-	}
 
 	void enterConstant(sharkbitParser::ConstantContext* ctx) override {
+		if (isInIfStatement && !relExpIf && !isElse) return;
 		VariableGuts::VariableType declaredVarType;
 		try {
 			declaredVarType = variableContainer.getVarialbeType(varName);
@@ -305,11 +302,6 @@ public:
 		{
 			declaredVarType = VariableGuts::NONE;
 		}
-=======
-
-	void enterConstant(sharkbitParser::ConstantContext* ctx) override {
-		if (isInIfStatement && !relExpIf && !isElse) return;
->>>>>>> nowe
 		if (ctx->INTNUMBER() != nullptr) {
 			if (varType == VariableGuts::INT || (varType == VariableGuts::NONE && declaredVarType == VariableGuts::INT))
 			{
@@ -324,7 +316,6 @@ public:
 			}
 		}
 
-<<<<<<< HEAD
 		if (ctx->STRING_CONST() != nullptr) {
 			if (varType == VariableGuts::STRING || (varType == VariableGuts::NONE && declaredVarType == VariableGuts::STRING))
 			{
@@ -414,6 +405,4 @@ public:
 	}
 	*/
 	}
-=======
->>>>>>> nowe
 };

@@ -21,9 +21,8 @@ public:
 
 
 int main(int argc, const char* argv[]) {
-<<<<<<< HEAD
     std::ifstream myfile;
-    myfile.open("C:/Users/JF/mordo_wiertara/test_sript.txt");
+    myfile.open("../../../sharkbit.sb");
     std::string line;
     std::string stringinput;
 
@@ -38,14 +37,6 @@ int main(int argc, const char* argv[]) {
     }
 
     ANTLRInputStream input(stringinput);
-=======
-
-
-
-    std::string word = "int a = 5;function check int(int a) {if (6 > 5) {? 1;}else { ? 0; }};";
-    std::string word1 = "int a = 2; a = 3; const int b = 12; b = 2; d = 3; ";
-    ANTLRInputStream input(word);
->>>>>>> nowe
     sharkbit::sharkbitLexer lexer(&input);
     CommonTokenStream tokens(&lexer);
     sharkbit::sharkbitParser parser(&tokens);
