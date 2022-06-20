@@ -1,0 +1,161 @@
+grammar sharkbit;
+
+program :
+declList;
+declList :
+declList decl | decl;
+decl :
+coutDecl | varDecl | funDecl;
+varDecl :
+constSpec typeDec varDeclInit SEMICOLON;
+varDeclInit :
+varDeclId | varDeclId ASSIGN mathExp;
+varDeclId :
+ID | ID LS RS;
+coutDecl :
+COUT ID SEMICOLON;
+constSpec :
+CONST | ;
+typeSpec :
+INT | BOOL | DOUBLE | STRING | IP | PROTOCOL | ADDRESS | FILE | PORT | CHAR | list;
+list :
+LIST LESStypeSpecGREATER;
+typeDec :
+typeSpec PointerDec;
+PionterDec :
+POINTER | ;
+funDecl :
+function ID typeDec LR parms RR stmt;
+parms :
+parmList | ;
+parmList :
+parmList SEMICOLON parmTypeList | parmTypeList;
+parmTypeList :
+typeDec parmIdList;
+parmIdList :
+parmIdList COMMA parmId | parmId;
+parmId :
+ID | ID LS RS;
+stmt :
+expStmt | compoundStmt | selectStmt | iterStmt | returnStmt | breakStmt;
+expStmt :
+simpleExp SEMICOLON | SEMICOLON;
+compoundStmt :
+LC localDecls stmtList RC;
+localDecls :
+localDecls VarDecl | ;
+stmtList :
+stmtList stmt | ;
+selectStmt :
+IF (simpleExp)stmt | IF (simpleExp) stmt else stmt;
+iterStmt :
+WHILE LR simpleExp RR stmt | FOR LR ID IN iterRange RR stmt;
+iterRange :
+simpleExp TO simpleExp | simpleExp TO simpleExp BY simpleExp;
+returnStmt :
+RETURN SEMICOLON | RETURN simpleExp SEMICOLON;
+breakStmt :
+BREAK SEMICOLON;
+simpleExp :
+mathExp | logicalExp;
+logicalExp :
+logicalExp AND unaryRelExp | unaryRelExp;
+unaryRelExp :
+NOT unaryRelExp | relExp;
+relExp :
+mathExp compop mathExp| mathExp;
+compop :
+LESS | GREATER | LEQ | GEQ | GEQ | DIFF;
+mathExp :
+factor mathOp mathExp | factor;
+mathOp :
+ADD | SUBSTRACTION | MULTIPLY | DIVIDE | MOD;
+factor :
+immutable | mutable;
+mutable :
+ID | ID LS NUMCONST RS;
+immutable :
+LR exp RR | call | constant;
+call :
+ID LR args RR;
+args :
+argList | ;
+argList :
+argList COMMA SimpleExp | SimpleExp;
+constant :
+NULL | INTNUMBER | CHAR | STRING | TRUE | FALSE | DOUBNUMBER;
+
+DOUBLE: 'double';
+INT: 'int';
+STRING: 'string';
+BREAK: 'break';
+IF: 'if';
+ELSE: 'else';
+RETURN: 'return';
+CHAR: 'char';
+CONST: 'const';
+FOR: 'for';
+VOID: 'void';
+WHILE: 'while';
+LIST: 'list';
+BOOL: 'bool';
+IP: 'ip';
+ADDRESS: 'address';
+FUNCTION: 'function';
+FILE: 'file';
+PROTOCOL: 'protocol';
+STRING: 'string';
+POINTER: 'pointer';
+AND: 'and';
+TRUE: 'true';
+FALSE: 'false';
+ENDLINE: ';';
+ADD: '+';
+SUBSTRACTION: '-';
+MULTIPLY: '\*';
+DIVIDE: '/';
+MOD: '%';
+ASSING: '=';
+COMMENT: '#';
+COUT: '?';
+QUOTE: '\'';
+DOUBLEQUOTE: '\"';
+LS: '[';
+RS: ']';
+LC: '{';
+RC: '}';
+LR: '(';
+RR: ')';
+POINTED_VALUE: '^';
+ADDRESS: '&';
+SEMICOLON: ';';
+PROTOCOL: 'protocol';
+DECYPHER: 'decypher';
+FIND_ADD: 'findAddresses';
+GET_PROC: 'getProcess';
+SEND_PACKET: 'sendPacket';
+NULL: 'null';
+LESS: '<';
+GREATER: '<';
+LEQ: '<=';
+GEQ: '>=';
+EQ: '==';
+DIFF: '!=';
+COMMA: ',';
+DOT: '.' ;
+AND: 'and';
+NOT: 'not';
+TO: 'to';
+BY: 'by';
+IN: 'in';
+
+ID: [A-Za-z][a-za-z0-9]*;
+digit: [0-9];
+letter: [A-Za-z];
+STRING: '\"'[A-Za-z]'\"';
+DOUBNUMBER: [0-9]+.[0-9]*;
+INTNUMBER: [0-9]+;
+CHAR: '\''[A-Za-z0-9]'\'';
+NULL: 'null';
+TRUE: 'true';
+FALSE: 'false';

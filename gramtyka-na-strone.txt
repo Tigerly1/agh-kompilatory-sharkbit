@@ -1,0 +1,44 @@
+==== Gramtyka ====
+  * Symbol startowy: program
+  - program → declList
+  - declList → declList decl | decl
+  - decl → coutDecl | varDecl | funDecl
+  - varDecl → constSpec typeDec varDeclInit SEMICOLON
+  - varDeclInit → varDeclId | varDeclId ASSIGN mathExp
+  - varDeclId → ID | ID LS RS
+  - coutDecl -> COUT ID SEMICOLON
+  - constSpec → CONST | Ø
+  - typeSpec → INT | BOOL | DOUBLE | STRING | IP | PROTOCOL | ADDRESS | FILE | PORT | CHAR | list
+  - list -> LIST LESStypeSpecGREATER
+  - typeDec -> typeSpec PointerDec
+  - PionterDec -> POINTER | Ø
+  - funDecl → function ID typeDec LR parms RR stmt
+  - parms → parmList | Ø
+  - parmList → parmList SEMICOLON parmTypeList | parmTypeList
+  - parmTypeList → typeDec parmIdList
+  - parmIdList → parmIdList COMMA parmId | parmId
+  - parmId → ID | ID LS RS
+  - stmt → expStmt | compoundStmt | selectStmt | iterStmt | returnStmt | breakStmt
+  - expStmt → simpleExp SEMICOLON | SEMICOLON
+  - compoundStmt → LC localDecls stmtList RC
+  - localDecls → localDecls VarDecl | Ø
+  - stmtList → stmtList stmt | Ø
+  - selectStmt → if (simpleExp)stmt | if (simpleExp) stmt else stmt
+  - iterStmt → while (simpleExp) stmt | for LR ID in iterRange RR  stmt
+  - iterRange → simpleExp to simpleExp | simpleExp to simpleExp by simpleExp
+  - returnStmt → return SEMICOLON | return simpleExp SEMICOLON
+  - breakStmt → break SEMICOLON
+  - simpleExp → mathExp | logicalExp
+  - logicalExp → logicalExp AND unaryRelExp | unaryRelExp
+  - unaryRelExp → NOT unaryRelExp | relExp
+  - relExp → mathExp compop mathExp| mathExp
+  - compop → LESS | GREATER | LEQ | GEQ | GEQ | DIFF
+  - mathExp → factor mathOp mathExp | factor
+  - mathOp → ADD | SUBSTRACTION | MULTIPLY | DIVIDE | MOD
+  - factor → immutable | mutable
+  - mutable → ID | ID  LS NUMCONST RS
+  - immutable → LR exp RR | call | constant
+  - call → ID LR args RR
+  - args → argList | Ø
+  - argList → argList COMMA  SimpleExp | SimpleExp
+  - constant → NULL | NUMCONST | CHARCONST | STRINGCONST | true | false
