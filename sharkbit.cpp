@@ -10,14 +10,6 @@
 #include "MyListner.h"
 
 using namespace antlr4;
-class TreeShapeListener : public sharkbit::sharkbitBaseListener {
-public:
-	void enterProgram(sharkbit::sharkbitParser::ProgramContext* ctx) override  {
-		// Do something when entering the key rule.
-		std::cout << ctx->declList() << std::endl;
-		//std::cout << "DZIAŁA KURWA AAA AA AAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-	}
-};
 
 
 int main(int argc, const char* argv[]) {

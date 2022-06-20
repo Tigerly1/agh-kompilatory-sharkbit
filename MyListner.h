@@ -5,6 +5,7 @@
 #include "sharkbitBaseListener.h";
 #include "VariableContainer.h"
 #include "Math.h";
+//#include "AdditionalFunctions.cpp"
 
 using namespace sharkbit;
 
@@ -83,8 +84,8 @@ public:
 
 	}
 	void enterCall(sharkbitParser::CallContext* ctx) override { 
-		if (ctx->WRITE_MEMORY()) {
-			cout << "OKEY BOOMER";
+		if (ctx->WRITE_MEMORY()!=nullptr) {
+			system("../../writeMemory.exe");
 		}
 	}
 	void exitPointerVarDecl(sharkbitParser::PointerVarDeclContext* ctx) override
@@ -289,7 +290,7 @@ public:
 
 	void exitCoutDecl(sharkbitParser::CoutDeclContext* ctx) override {
 		if (isInIfStatement && !relExpIf && !isElse) return;
-		cout << math.getResult();
+		cout << math.getResult()<<endl;
 	}
 
 	void enterConstant(sharkbitParser::ConstantContext* ctx) override {

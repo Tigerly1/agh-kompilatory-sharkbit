@@ -1,2 +1,5 @@
-int main = 5;
-?main;
+int a = 150;
+int b = 135;
+int c = 600;
+writeMemory(a,b,c);
+
